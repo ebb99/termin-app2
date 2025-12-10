@@ -52,9 +52,17 @@ app.post('/api/termine', async (req, res) => {
             [titel, start_zeitpunkt, ende_zeitpunkt]
         );
         res.status(201).json(result.rows[0]);
-    } catch (error) {
-        console.error('DB Speichern fehlgeschlagen:', error); // <-- DAS IST WICHTIG
-        res.status(500).json({ error: 'Interner Serverfehler beim Speichern in DB.' });
+     } catch (error) {
+        // Loggen Sie das gesamte Fehler-Objekt Detailliert
+        console.error('--- DETAILLIERTER DB-FEHLER START ---');
+        console.error(error); 
+        console.error('--- DETAILLIERTER DB-FEHLER ENDE ---');
+        
+        // Senden Sie eine spezifischere Antwort an das Frontend für Debugging-Zwecke
+        res.status(500).json({ 
+            error: 'Interner Serverfehler beim Speichern in DB.', 
+            details: error.message // Senden Sie die Fehlermeldung zurück ans Frontend (nur temporär!)
+        });
     }
 });
 
