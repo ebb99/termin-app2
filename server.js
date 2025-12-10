@@ -42,21 +42,16 @@ app.post('/api/termine', async (req, res) => {
         return res.status(400).json({ error: 'Bitte alle Felder ausfüllen.' });
     }
 
-    try {
+        try {
+        // Hier passiert die DB-Abfrage
         const result = await pool.query(
-            `INSERT INTO termine (titel, start_zeitpunkt, ende_zeitpunkt)
-             VALUES ($1, $2, $3) RETURNING *`,
+            'INSERT INTO termine (titel, start_zeitpunkt, ende_zeitpunkt) VALUES ($1, $2, $3) RETURNING *',
             [titel, start_zeitpunkt, ende_zeitpunkt]
         );
-        
-        // KORRIGIERTE ANTWORT:
-        // Senden Sie NUR das erste Element des result.rows Arrays zurück.
-        // Das ist das einzelne Objekt, das das Frontend erwartet.
-        res.status(201).json(result.rows[0]); 
-
-    } catch (err) {
-        console.error('Fehler beim Speichern des Termins:', err);
-        res.status(500).json({ error: 'Interner Serverfehler beim Speichern in DB' });
+        res.status(201).json(result.rows[0]);
+    } catch (error) {
+        console.error('DB Speichern fehlgeschlagen:', error); // <-- DAS IST WICHTIG
+        res.status(500).json({ error: 'Interner Serverfehler beim Speichern in DB.' });
     }
 });
 
