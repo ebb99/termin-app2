@@ -6,23 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zeiten eingeben</title>
     <style>
-        body { font-family: sans-serif; max-width: 600px; margin: 20px auto; padding: 0 20px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; }
-        input { width: 100%; padding: 8px; box-sizing: border-box; }
-        button { padding: 10px 15px; background-color: #007bff; color: white; border: none; cursor: pointer; }
-        #message-area { margin-top: 20px; padding: 10px; border-radius: 5px; }
-        .success { background-color: #d4edda; color: #155724; }
-        .error { background-color: #f8d7da; color: #721c24; }
+    
     </style>
 </head>
 
-
+<body>
 
 <nav>
 	<h2>Navigation :</h2>
 	<ul>
-		<li><a aria-current="page">Home</a></li>
-		<li><a href="zeiten.html">Zeiten</a></li>
+		<li><a aria-current="page">Zeiten</a></li>
+		<li><a href="index.html">Home</a></li>
 	</ul>
 </nav>   
+
+
+    <h1>Neuen Termin speichern</h1>
+
+    <form id="appointmentForm">
+        <div class="form-group">
+            <label for="titel">Titel des Termins:</label>
+            <input type="text" id="titel" required>
+        </div>
+        <div class="form-group">
+            <label for="start_zeitpunkt">Startzeitpunkt:</label>
+            <!-- input type="datetime-local" erzeugt ein kombiniertes Datums- und Zeitfeld -->
+            <input type="datetime-local" id="start_zeitpunkt" required>
+        </div>
+        <div class="form-group">
+            <label for="ende_zeitpunkt">Endzeitpunkt:</label>
+            <input type="datetime-local" id="ende_zeitpunkt" required>
+        </div>
+        <button type="submit">Termin speichern</button>
+    </form>
+
+    <div id="message-area"></div>
+
+
+    </body>

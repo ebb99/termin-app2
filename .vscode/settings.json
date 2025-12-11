@@ -1,6 +1,14 @@
 {
     "sqltools.connections": [
         {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "PostgreSQL",
+            "name": "fussball lokal",
+            "connectString": "postgres://postgres:6778@localhost:5432/postgres"
+        },
+        {
             "pgOptions": {
                 "ssl": {
                     "rejectUnauthorized": false
@@ -10,7 +18,7 @@
             "previewLimit": 50,
             "server": "localhost",
             "driver": "PostgreSQL",
-            "name": "Termine App1",
+            "name": "railway App1",
             "connectString": "postgresql://postgres:BAGXLhDWhJHOdDxqqsmhBidmnXDigrnj@trolley.proxy.rlwy.net:24237/railway"
         }
     ]
