@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terminplaner Test</title>
-    
+    <script src="script.js" defer></script>  
+  <!--   <link rel="stylesheet" href="../css/style.css">
+-->
 </head>
 <body>
 <nav>
@@ -15,28 +17,9 @@
 		<li><a href="zeiten.html">Zeiten</a></li>
 	</ul>
 </nav>    
-    <h1>Neuen Termin speichern</h1>
-
-    <form id="appointmentForm">
-        <div class="form-group">
-            <label for="titel">Titel des Termins:</label>
-            <input type="text" id="titel" required>
-        </div>
-        <div class="form-group">
-            <label for="start_zeitpunkt">Startzeitpunkt:</label>
-            <!-- input type="datetime-local" erzeugt ein kombiniertes Datums- und Zeitfeld -->
-            <input type="datetime-local" id="start_zeitpunkt" required>
-        </div>
-        <div class="form-group">
-            <label for="ende_zeitpunkt">Endzeitpunkt:</label>
-            <input type="datetime-local" id="ende_zeitpunkt" required>
-        </div>
-        <button type="submit">Termin speichern</button>
-    </form>
-
-    <div id="message-area"></div>
+  
 
     <!-- Fügt das JavaScript-Logik-Skript ein -->
-    <script src="script.js"></script>
+ 
 </body>
 </html>

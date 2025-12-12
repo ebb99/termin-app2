@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zeiten eingeben</title>
-    <style>
+    <!--<link rel="stylesheet" href="../css/style.css">  
     
-    </style>
+-->  
+    <script src="script.js" defer></script>    
 </head>
 
 <body>
@@ -21,26 +22,19 @@
 </nav>   
 
 
-    <h1>Neuen Termin speichern</h1>
+    <h1>Neue zeit speichern</h1>
 
-    <form id="appointmentForm">
+    <form id="appointmentForm2">
+        
+       
         <div class="form-group">
-            <label for="titel">Titel des Termins:</label>
-            <input type="text" id="titel" required>
-        </div>
-        <div class="form-group">
-            <label for="start_zeitpunkt">Startzeitpunkt:</label>
-            <!-- input type="datetime-local" erzeugt ein kombiniertes Datums- und Zeitfeld -->
-            <input type="datetime-local" id="start_zeitpunkt" required>
-        </div>
-        <div class="form-group">
-            <label for="ende_zeitpunkt">Endzeitpunkt:</label>
-            <input type="datetime-local" id="ende_zeitpunkt" required>
+            <label for="zeitpunkt">Zeit:</label>
+           <input type="datetime-local" id="zeitpunkt" name="zeitpunkt" required>
         </div>
         <button type="submit">Termin speichern</button>
     </form>
 
-    <div id="message-area"></div>
+    <div id="message-area2"></div>
 
 
     </body>

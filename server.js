@@ -32,32 +32,35 @@ pool.connect((err, client, done) => {
     console.log('PostgreSQL-Datenbank verbunden!');
 });
 
-// --- API Endpunkt zum Speichern neuer Termine ---
-app.post('/api/termine', async (req, res) => {
-    const { titel, start_zeitpunkt, ende_zeitpunkt } = req.body;
+// --- API Endpunkt: Einen einzelnen Zeitpunkt speichern ---
+app.post('/api/zeiten', async (req, res) => {
+    const { zeitpunkt } = req.body;
 
-    if (!titel || !start_zeitpunkt || !ende_zeitpunkt) {
-        return res.status(400).json({ error: 'Bitte alle Felder ausfüllen.' });
+    if (!zeitpunkt) {
+        return res.status(400).json({ error: 'Zeitpunkt fehlt.' });
     }
 
     try {
         const result = await pool.query(
-            'INSERT INTO termine (titel, start_zeitpunkt, ende_zeitpunkt) VALUES ($1, $2, $3) RETURNING *',
-            [titel, start_zeitpunkt, ende_zeitpunkt]
+            'INSERT INTO zeiten (zeitpunkt) VALUES ($1) RETURNING *',
+            [zeitpunkt]
         );
-        res.status(201).json(result.rows[0]);
-    } catch (error) {
-        console.error('--- DETAILLIERTER DB-FEHLER START ---');
-        console.error(error);
-        console.error('--- DETAILLIERTER DB-FEHLER ENDE ---');
 
-        res.status(500).json({
-            error: 'Interner Serverfehler beim Speichern in DB.',
-            details: error.message
+        res.status(201).json({
+            message: 'Zeit erfolgreich gespeichert!',
+            data: result.rows[0]
+        });
+
+    } catch (error) {
+        console.error('Datenbankfehler beim Speichern der Zeit:', error);
+        res.status(500).json({ 
+            error: 'Interner Datenbankfehler.',
+            details: error.message 
         });
     }
 });
 
+/*
 // --- API: Alle Termine abrufen ---
 app.get('/api/termine', async (req, res) => {
   try {
@@ -90,7 +93,7 @@ app.delete('/api/termine/:id', async (req, res) => {
 app.get('/termine', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'termine.html'));
 });
-
+*/
 
 
 // --- Static Files ---

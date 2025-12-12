@@ -1,46 +1,59 @@
 // public/script.js (Korrigierte Version)
 
-document.getElementById('appointmentForm').addEventListener('submit', async function(event) {
-    event.preventDefault(); 
 
-    const titel = document.getElementById('titel').value;
-    const start_zeitpunkt = document.getElementById('start_zeitpunkt').value;
-    const ende_zeitpunkt = document.getElementById('ende_zeitpunkt').value;
 
-    const messageArea = document.getElementById('message-area');
-    messageArea.innerHTML = '';
+// formular für Zeiten
+document.getElementById("appointmentForm2").addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-    const data = {
-        titel: titel,
-        start_zeitpunkt: start_zeitpunkt,
-        ende_zeitpunkt: ende_zeitpunkt
-    };
+    const zeitpunkt = document.getElementById("zeitpunkt").value;
+
+    const response = await fetch("/api/zeiten", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ zeitpunkt })
+    });
+
+    const result = await response.json();
+    document.getElementById("message-area2").innerText = result.message;
+});
+
+
+// Debugging
+console.log("script.js geladen");
+
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOM ready");
+
+  const form = document.getElementById("appointmentForm2");
+  const input = document.getElementById("zeitpunkt");
+
+  if (!form) console.error("Formular nicht gefunden (appointmentForm2)");
+  if (!input) console.error("Input nicht gefunden (zeitpunkt)");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const zeitpunkt = input.value;
+    console.log("Form submitted, zeitpunkt =", zeitpunkt);
 
     try {
-        const response = await fetch('/api/termine', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
+      const res = await fetch("/api/zeiten", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ zeitpunkt })
+      });
 
-        const result = await response.json(); // <-- result ist hier ein Array, z.B. [{ id: 1, ... }]
+      console.log("Fetch response status:", res.status);
+      const json = await res.json().catch(() => null);
+      console.log("Fetch response body:", json);
 
-        if (response.ok) {
-            // HIER IST DIE KORREKTUR: Wir greifen auf das erste Element [0] im Array zu
-            // const firstResult = result[0]; 
-            // messageArea.innerHTML = 'Termin erfolgreich gespeichert! ID: ' + firstResult.id;
-
-            // Oder kompakter:
-           //messageArea.innerHTML = 'Termin erfolgreich gespeichert! ID: ' + result[0].id;
-            messageArea.innerHTML = 'Termin erfolgreich gespeichert! ID: ' + result.id;
-            document.getElementById('appointmentForm').reset(); 
-        } else {
-            throw new Error(result.error || 'Unbekannter Fehler beim Speichern.');
-        }
-    } catch (error) {
-        messageArea.className = 'error';
-        messageArea.innerHTML = 'Fehler: ' + error.message;
+      document.getElementById("message-area2").innerText = json?.message || JSON.stringify(json) || `Status: ${res.status}`;
+    } catch (err) {
+      console.error("Fetch error:", err);
+      document.getElementById("message-area2").innerText = "Fehler beim Senden: " + err.message;
     }
+  });
 });
+
+
+// Ende neu
